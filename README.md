@@ -167,12 +167,27 @@ g는 policy gradient 이며, H는 "Fisher Information Matrix (FIM)" 입니다.
 위의 식을 토대로 optimization 문제는 다음과 같이 변경이 가능합니다.    
 ![image](https://user-images.githubusercontent.com/40893452/46097155-19964d00-c1fc-11e8-861f-61f445a6c8c1.png)
 
+이 식의 해는 다음과 같이 Natural Policy Gradient 논문에 실린 내용을 기반으로 풀 수 있게 됩니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46097527-27989d80-c1fd-11e8-9fb6-333116cc5f8b.png)
+
+![image](https://user-images.githubusercontent.com/40893452/46097552-397a4080-c1fd-11e8-92e2-ad19ae0d0e17.png)
+
+> ![image](https://user-images.githubusercontent.com/40893452/46097732-9675f680-c1fd-11e8-8e9c-4b9b49a9e738.png)
+> ![image](https://user-images.githubusercontent.com/40893452/46097766-ad1c4d80-c1fd-11e8-9257-2e5d19a75ce0.png)
+
+
+그러나 이 식에서 FIM (H) 의 inverse matrix를 구하는 것은 computation 측면에서 매우 비효율 적입니다.  
+그러므로, TRPO 에서는 위 식으 해당 부분을 추정 하는 것으로 대체 합니다.  
+![image](https://user-images.githubusercontent.com/40893452/46097647-675f8500-c1fd-11e8-9e9a-1c6732df7f99.png)
+
+위의 식은 "Conjugate gradient method"에 의해서 풀릴 수 있습니다.   
+Conjugate gradient method은 gradient descent와 비슷하지만 최대 N 회 반복에서 최적 점을 찾을 수 있습니다.  
+> 여기서 N은 모델의 매개 변수 수입니다.
+
+그러므로, CG 기법을 적용하면 다음과 같이 알고리즘이 변화됩니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46097897-0b493080-c1fe-11e8-9e1e-15a57006cf3c.png)
 
 
 
-
-
- 
-
-## [Motivation]
- 

@@ -148,6 +148,25 @@ Dtv 는 이 논문에서 KL-Divergence로 대체되므로 중요하게 생각하
 > 위의 두 사진은 이웅원 씨의 https://www.slideshare.net/WoongwonLee/trpo-87165690 에서 확인하실 수 있으며,  
 > 워낙 흐름이 좋아서 그대로 가져왔습니다. 설명도 필요없네요.   
 
+위의 최종적인 maximize 식과 제약 조건 식을 풀기 위해서, "lagrangian duality" 방법을 사용합니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46096695-d1c2f600-c1fa-11e8-8ec5-95388eabdef5.png)
+
+위 식의 beta는 lagrangian multiplier 입니다.
+
+### Optimizing the objective function
+위의 변형된 objective function을 실제로 풀기 위해서는 어려운 수식들을 이해해야합니다.   
+(1) maximize 해야하는 surrogate function L에 대한 "first order"   
+(2) KL-Divergence의 "second order"  
+Taylor Series를 기반으로 L과 KL-Divergence의 expectation을 (1), (2)를 통해서 근사합니다.    
+다음과 같이 수식으로 표현됩니다.  
+![image](https://user-images.githubusercontent.com/40893452/46097041-c4f2d200-c1fb-11e8-869d-bcf89ca6bfff.png)
+
+g는 policy gradient 이며, H는 "Fisher Information Matrix (FIM)" 입니다.  
+
+위의 식을 토대로 optimization 문제는 다음과 같이 변경이 가능합니다.    
+![image](https://user-images.githubusercontent.com/40893452/46097155-19964d00-c1fc-11e8-861f-61f445a6c8c1.png)
+
 
 
 

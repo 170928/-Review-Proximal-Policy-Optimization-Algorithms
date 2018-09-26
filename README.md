@@ -3,7 +3,8 @@
 > John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov  
 > OpenAI  
 > https://arxiv.org/pdf/1707.06347.pdf  
-[Reference for git]  
+[Reference for git]   
+> https://www.slideshare.net/WoongwonLee/trpo-87165690
 > https://medium.com/@jonathan_hui/rl-the-math-behind-trpo-ppo-d12f6c745f33
 
 ## [Mathematics]
@@ -71,10 +72,11 @@ M = L(theta) - C * KL  의 식에서 second term인 KL은 KL-Divergence를 의�
 
 ![image](https://user-images.githubusercontent.com/40893452/46090282-586fd700-c1eb-11e8-8c53-d64c553bf5c9.png)
 
-현재 정책 (current policy) 에서 "red line" 과 "blue line"이 맞다아 있으므로, KL( θi, θi )는 log 부분이 1이 되어  
-0이 된다.   
+다시 objective function의 식에 대해서 생각해 봅시다.  
 
-그러므로, η(θi) = η(θi) 가 되어, advantage A(s,a) = 0 이 된다.   
+
+
+그러므로, η(θi) = η(θi) 가 되면, advantage A(s,a) = 0 이 된다.   
 그로인해, function L 식의 우변에서 advantage의 term이 없어지고 다음과 같이 변한다.  
 
 ![image](https://user-images.githubusercontent.com/40893452/46091277-7807ff00-c1ed-11e8-89fb-f1daf14a5624.png)
@@ -82,10 +84,16 @@ M = L(theta) - C * KL  의 식에서 second term인 KL은 KL-Divergence를 의�
 function L을 θ에 대해서 미분하면 위와 같은 결과를 얻을 수 있다.   
 > |θ=θi 표기는 θ가 θi 인 점에서의 미분 값을 의미하게 됩니다.  
 
+KL(θi, θi) = 0 이기 떄문에, surrogate function M은 "locally"한 expected rewards를 근사 하게됩니다.  
+
+### Lower bound of function M
+> TRPO paper의 appendix에서 2장에 걸쳐서 증명하는 내용에 대한 설명입니다.  
+> 위의 내용들을 포함해서 이 내용들은 https://medium.com/@jonathan_hui/rl-the-math-behind-trpo-ppo-d12f6c745f33 의 번역 과 제 이해의 추가가 담긴 내용들입니다.
+
+새로운 정책 (policy)의 expected discounted reward η(new) 의 lower bound는 function M 에 따라 다음과 같이 표현됩니다.    
+![image](https://user-images.githubusercontent.com/40893452/46093600-b94edd80-c1f2-11e8-980f-9bc9a4e3963c.png)
 
 
-
-### Surrogate Function
 
 
 ## [Motivation]

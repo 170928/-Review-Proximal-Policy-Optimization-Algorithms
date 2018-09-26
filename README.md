@@ -63,9 +63,26 @@ expectation (기댓값) advantage는 우변의 sigma_s p(s) * sigma_a phi(a|s) *
 MM 알고리즘을 통해서 우리는 현재 정책 (current policy)에서 η (에타) expected discounted reward를 근사하는 것으로 lower bound를 찾고자 합니다.  
 ![image](https://user-images.githubusercontent.com/40893452/46077127-bdff9b80-c1ca-11e8-99c9-b2f149c77160.png)
 
-그럼 function L은 function M의 lower bound 중 일부가 됩니다.  
+그럼 function L은 function M의 lower bound equation 중 일부가 됩니다.  
 
 ![image](https://user-images.githubusercontent.com/40893452/46077159-db346a00-c1ca-11e8-936c-0e5264bf066b.png)
+
+M = L(theta) - C * KL  의 식에서 second term인 KL은 KL-Divergence를 의미합니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46090282-586fd700-c1eb-11e8-8c53-d64c553bf5c9.png)
+
+현재 정책 (current policy) 에서 "red line" 과 "blue line"이 맞다아 있으므로, KL( θi, θi )는 log 부분이 1이 되어  
+0이 된다.   
+
+그러므로, η(θi) = η(θi) 가 되어, advantage A(s,a) = 0 이 된다.   
+그로인해, function L 식의 우변에서 advantage의 term이 없어지고 다음과 같이 변한다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46091277-7807ff00-c1ed-11e8-89fb-f1daf14a5624.png)
+
+function L을 θ에 대해서 미분하면 위와 같은 결과를 얻을 수 있다.   
+> |θ=θi 표기는 θ가 θi 인 점에서의 미분 값을 의미하게 됩니다.  
+
+
 
 
 ### Surrogate Function

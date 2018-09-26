@@ -72,11 +72,19 @@ M = L(theta) - C * KL  의 식에서 second term인 KL은 KL-Divergence를 의�
 
 ![image](https://user-images.githubusercontent.com/40893452/46090282-586fd700-c1eb-11e8-8c53-d64c553bf5c9.png)
 
-다시 objective function의 식에 대해서 생각해 봅시다.  
+다시 objective function의 식에 대해서 생각해 봅시다.   
+![image](https://user-images.githubusercontent.com/40893452/46076907-f3f05000-c1c9-11e8-8522-3ae2427598e8.png)
 
+위 식은 다음과 같은 2가지 case가 발생할 수 있습니다.  
+(1) 어떤 action에 따라 "positive advantage" 가 발생.  
+(2) "negative advantage" ( A(s, a) <= 0 ) 가 발생.  
 
+이때, (1)의 경우는 해당 action을 강화시키는 방향으로 policy를 일반적인 policy gradient 처럼 update한다고 생각하면 됩니다.  
+그러나, (2)의 경우에는 문제가 생깁니다.   
 
-그러므로, η(θi) = η(θi) 가 되면, advantage A(s,a) = 0 이 된다.   
+(2)의 경우, discounted state distribution of new policy 를 구하는 것이 어려워 집니다.  
+
+η(θi) = η(θi) 가 되면, advantage A(s,a) = 0 이 된다.   
 그로인해, function L 식의 우변에서 advantage의 term이 없어지고 다음과 같이 변한다.  
 
 ![image](https://user-images.githubusercontent.com/40893452/46091277-7807ff00-c1ed-11e8-89fb-f1daf14a5624.png)
@@ -84,7 +92,22 @@ M = L(theta) - C * KL  의 식에서 second term인 KL은 KL-Divergence를 의�
 function L을 θ에 대해서 미분하면 위와 같은 결과를 얻을 수 있다.   
 > |θ=θi 표기는 θ가 θi 인 점에서의 미분 값을 의미하게 됩니다.  
 
-KL(θi, θi) = 0 이기 떄문에, surrogate function M은 "locally"한 expected rewards를 근사 하게됩니다.  
+KL(θi, θi) = 0 이기 떄문에, surrogate function M은 "local apporximation"을 수행하게 됩니다.  
+이는 objective function의 관점에서 보면 다음과 같습니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46094198-50686500-c1f4-11e8-82fd-ca5e191a2e75.png)
+> Kakade & Langford (2002) 가 증명 하였습니다.  
+
+local approximation은 새로운 정책 policy를 update 하는 개념이 아니라, old policy를 update 하는 것으로  
+local approximation을 improve 하여도 전체 objective function이 improve 된다는 것이 위의 논문에 증명되어 있습니다.  
+
+그러나, local approximation을 통해서 improve 하는 policy가 어느정도 변해야지 objective function의 improve를 보장하는지는  
+알 수 없습니다.  
+
+그러므로, lower bound를 정의하고 이 lower bound를 update 하는 것으로 이것을 보장하고자 하는 것이 이 논문의 특징이 됩니다.  
+
+
+
 
 ### Lower bound of function M
 > TRPO paper의 appendix에서 2장에 걸쳐서 증명하는 내용에 대한 설명입니다.  
@@ -92,7 +115,17 @@ KL(θi, θi) = 0 이기 떄문에, surrogate function M은 "locally"한 expected
 
 새로운 정책 (policy)의 expected discounted reward η(new) 의 lower bound는 function M 에 따라 다음과 같이 표현됩니다.    
 ![image](https://user-images.githubusercontent.com/40893452/46093600-b94edd80-c1f2-11e8-980f-9bc9a4e3963c.png)
+    
+Dtv 는 the total variation divergence 라고 합니다.   
+Dtv 는 이 논문에서 KL-Divergence로 대체되므로 중요하게 생각하지 않으셔도 됩니다.    
 
+그러면 식이 다음과 같이 변하게 됩니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46094540-2ebbad80-c1f5-11e8-9491-138130c75457.png)
+
+이제 위 식에 따라 우변의 lower bound를 의미하는 term들을 최적화 시켜주면 됩니다.  
+
+### Monotonically improving guarantee
 
 
 

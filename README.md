@@ -126,8 +126,34 @@ Dtv 는 이 논문에서 KL-Divergence로 대체되므로 중요하게 생각하
 이제 위 식에 따라 우변의 lower bound를 의미하는 term들을 최적화 시켜주면 됩니다.  
 
 ### Monotonically improving guarantee
+어떤 정책이 update가 될 때, 이전의 policy 보다 성능이 향상될 것이라는 것을 보장하는 것 이 필요합니다.  
+위에서 lower bound 식 M을 최적화하여 얻은 새로운 정책이 이전 정책보다 expected discounted reward 측면에서 더 좋은 성능을  
+보이는 것을 보장해야한다는 것을 의미합니다.  
+이것이 보장 된다면, 지속적으로 정책을 update 하는 것으로 optimal policy에 도달하게 된다는 것이 보장되기 때문에  
+매우 중요한 개념입니다.  
+
+![image](https://user-images.githubusercontent.com/40893452/46095648-04b7ba80-c1f8-11e8-93de-abcc81a2879a.png)
+
+위의 사진은 새로운 정책이 기존의 정책 보다 더 나은 성능을 보여주는 것을 보장하는 iteration algorithm입니다.   
+그러나, 모든 정책들 중 KL divergence의 maximum을 구하는 것은 연산 측면에서 불가능 합니다.  
+
+그러므로, 이 제약 조건을 완화시킴과 동시에 KL divergence의 평균 (mean) 값을 사용하게 됩니다.  
+![image](https://user-images.githubusercontent.com/40893452/46095782-552f1800-c1f8-11e8-8424-ce1e36c3e86b.png)
+
+완화시킨 규칙에 따라 최적화 하고자 하는 식이 다음과 같이 변합니다.  
+![image](https://user-images.githubusercontent.com/40893452/46095908-b35bfb00-c1f8-11e8-8871-ba164c856d5b.png)
+
+![image](https://user-images.githubusercontent.com/40893452/46095965-ddadb880-c1f8-11e8-918d-28f570e66afd.png)
+
+> 위의 두 사진은 이웅원 씨의 https://www.slideshare.net/WoongwonLee/trpo-87165690 에서 확인하실 수 있으며,  
+> 워낙 흐름이 좋아서 그대로 가져왔습니다. 설명도 필요없네요.   
 
 
+
+
+
+
+ 
 
 ## [Motivation]
  

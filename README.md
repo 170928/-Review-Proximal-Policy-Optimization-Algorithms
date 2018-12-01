@@ -13,7 +13,7 @@
 
 기본적으로 Reinforcement Learning은 discounted expected reward를 최대화 하는 것을 목표로 합니다.  
 이 expected discounted reward를 η (에타) 로 다음과 같이 표현합니다.  
-
+ 
 ![image](https://user-images.githubusercontent.com/40893452/46075159-986f9380-c1c4-11e8-8cd5-48616389ce29.png)
 
 ### MM Algorithm
